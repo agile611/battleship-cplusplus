@@ -5,7 +5,7 @@ C++ BattleShip
 ## How to build this demo
 
 ```bash
-git clone https://github.com/bast/gtest-demo.git
+git clone https://github.com/agile611/battleship-cplusplus.git
 cd gtest-demo
 mkdir build
 cd build
