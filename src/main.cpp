@@ -1,158 +1,75 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
-
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <locale>        
+#include "Map.h"
+#include "GridHelper.h"
 
 using namespace std;
 
-
 int main() {
+        std::cout << "##################################################################################"<< endl;
+        std::cout << "#                                     |__)                                       #" << endl;
+        std::cout << "#                                     |\/)                                        #" << endl;
+        std::cout << "#                                     ---)                                       #" << endl;
+        std::cout << "#                                     / | [)                                     #" << endl;
+        std::cout << "#                              !      | |||)                                     #" << endl;
+        std::cout << "#                            _/|     _/|-++')                                    #" << endl;
+        std::cout << "#                        +  +--|    |--|--|_ |-)                                 #" << endl;
+        std::cout << "#                     { /|__|  |/\__|  |--- |||__/)                               #" << endl;
+        std::cout << "#                    +---------------___[}-_===_.'____                 /\         #" << endl;
+        std::cout << "#                ____`-' ||___-{]_| _[}-  |     |_[___\==--            \/   _      #" << endl;
+        std::cout << "# __..._____--==/___]_|__|_____________________________[___\==--____,------' .7   #" << endl;
+        std::cout << "#|                        Welcome to Battleship                         BB-61/   #" << endl;
+        std::cout << "# \_________________________________________________________________________|     #" << endl;
+        std::cout << "##################################################################################"<< endl;
 
-        cout << "                                     |__"<<endl;
-        cout << "                                     |\\/"<<endl;
-        cout << "                                     ---"<<endl;
-        cout << "                                     / | ["<<endl;
-        cout << "                              !      | |||"<<endl;
-        cout << "                            _/|     _/|-++'"<<endl;
-        cout << "                        +  +--|    |--|--|_ |-"<<endl;
-        cout << "                     { /|__|  |/\\__|  |--- |||__/"<<endl;
-        cout << "                    +---------------___[}-_===_.'____                 /\\"<<endl;
-        cout << "                ____`-' ||___-{]_| _[}-  |     |_[___\\==--            \\/   _"<<endl;
-        cout << " __..._____--==/___]_|__|_____________________________[___\\==--____,------' .7"<<endl;
-        cout << "|                        Welcome to Battleship                         BB-61/"<<endl;
-        cout << " \\_________________________________________________________________________|"<<endl;
+    srand(time(0));//seed random
 
-        InitializeGame();
+    string input;
+    bool turn = true;
 
-        StartGame();
-    
-}
+    //create class instance
+    Map map;
+    GridHelper grid;
 
-void StartGame(){
+    //reset and randomize;
+    map.resetGrid();
+    map.startGame();
+    map.printGrid();
 
-         cout << "                  __"<<endl;
-         cout << "                 /  \ "<<endl;
-         cout << "           .-.  |    | "<<endl;
-         cout << "   *    _.-'  \  \__/ "<<endl;
-         cout << "    \.-'       \ "<<endl;
-         cout << "   /          _/ "<<endl;
-         cout << "  |      _  /"""<<endl;
-         cout << "  |     /_\ "<<endl;
-         cout << "   \    \_/ "<<endl;
-         cout << "    """""""" "<<endl;
-
-         do
-         {
-            cout << "Player, it's your turn"<<endl;
-            cout << "Enter coordinates for your shot :"<<endl;
-            var position = ParsePosition(Console.ReadLine());
-            var isHit = GameController.CheckIsHit(enemyFleet, position);
-            if (isHit)
-            {
-               Console.Beep();
-
-               cout << "                \         .  ./"<<endl;
-               cout << "              \      .:"";'.:..""   /"<<endl;
-               cout << "                  (M^^.^~~:.'"")."<<endl;
-               cout << "            -   (/  .    . . \ \)  -"<<endl;
-               cout << "               ((| :. ~ ^  :. .|))"<<endl;
-               cout << "            -   (\- |  \ /  |  /)  -"<<endl;
-               cout << "                 -\  \     /  /-"<<endl;
-               cout << "                   \  \   /  /"<<endl;
-            }
-
-            cout << isHit ? "Yeah ! Nice hit !" : "Miss"<<endl;
-
-            position = GetRandomPosition();
-            isHit = GameController.CheckIsHit(myFleet, position);
-            cout << );
-            cout << "Computer shot in {0}{1} and {2}", position.Column, position.Row, isHit ? "has hit your ship !" : "miss"<<endl;
-            if (isHit)
-            {
-               cout << '\a'; //Console Beep, more indie
-
-               cout << "                \         .  ./"<<endl;
-               cout << "              \      .:"";'.:..""   /"<<endl;
-               cout << "                  (M^^.^~~:.'"")."<<endl;
-               cout << "            -   (/  .    . . \ \)  -"<<endl;
-               cout << "               ((| :. ~ ^  :. .|))"<<endl;
-               cout << "            -   (\- |  \ /  |  /)  -"<<endl;
-               cout << "                 -\  \     /  /-"<<endl;
-               cout << "                   \  \   /  /"<<endl;
-
-            }
-         }
-         while (true);
-}
-
-Position ParsePosition(string input)
-{
-         var letter = (Letters)Enum.Parse(typeof(Letters), input.ToUpper().Substring(0, 1));
-         var number = int.Parse(input.Substring(1, 1));
-         return new Position(letter, number);
-}
-
-Position GetRandomPosition()
-{
-          int rows = 8;
-          int lines = 8;
-          var random = new Random();
-          var letter = (Letters)random.Next(lines);
-          var number = random.Next(rows);
-          var position = new Position(letter, number);
-          return position;
-}
-
-void InitializeGame()
-{
-         InitializeMyFleet();
-
-         InitializeEnemyFleet();
-}
-
-void InitializeMyFleet()
-{
-         myFleet = GameController.InitializeShips().ToList();
-
-         Console.WriteLine("Please position your fleet (Game board size is from A to H and 1 to 8) :");
-
-         foreach (var ship in myFleet)
-         {
-            Console.WriteLine();
-            Console.WriteLine("Please enter the positions for the {0} (size: {1})", ship.Name, ship.Size);
-            for (var i = 1; i <= ship.Size; i++)
-            {
-               Console.WriteLine("Enter position {0} of {1} (i.e A3):", i, ship.Size);
-               ship.AddPosition(Console.ReadLine());
-            }
-         }
-      }
-
-void InitializeEnemyFleet()
-{
-         enemyFleet = GameController.InitializeShips().ToList();
-
-         enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 4 });
-         enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 5 });
-         enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 6 });
-         enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 7 });
-         enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 8 });
-
-         enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 6 });
-         enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 7 });
-         enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 8 });
-         enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 9 });
-
-         enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 3 });
-         enemyFleet[2].Positions.Add(new Position { Column = Letters.B, Row = 3 });
-         enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 3 });
-
-         enemyFleet[3].Positions.Add(new Position { Column = Letters.F, Row = 8 });
-         enemyFleet[3].Positions.Add(new Position { Column = Letters.G, Row = 8 });
-         enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 8 });
-
-         enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 5 });
-         enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 6 });
-      }
+    do{
+        if(turn)//Human Player
+        {
+            do{
+                cout << "Enter a position";
+                cin >> input;
+                input = grid.processGridInput(input);
+                if(!map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.cpuGrid) && !map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.playerGrid)){
+                    cout << "Invalid Position" << endl;
+                }
+            }while (!map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.cpuGrid) && !map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.playerGrid));
+            map.hitShip(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.playerGrid,map.cpuGrid);
+            system("clear");
+            cout << "Human Player Grid" << endl;
+            map.printGrid();
+            if(!map.checkWin(map.playerGrid))
+                turn = !turn;
+        }
+        else//CPU
+        {
+            do {
+                input = grid.CPUDecision();
+            }while (!map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.cpuGrid) && !map.isBlockCleared(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.playerGrid));
+            map.hitShip(grid.asciiToNum(input[0]),grid.asciiToNum(input[1]),map.cpuGrid,map.playerGrid);
+            system("clear");
+            cout << "CPU Player Grid" << endl;
+            //map.printCPUGrid(); __DEBUG__
+            if(!map.checkWin(map.cpuGrid))
+                turn = !turn;
+        }
+    }while(true);
 }
