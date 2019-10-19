@@ -21,7 +21,7 @@ Either using `ctest`:
 $ ctest
 
 Running tests...
-Test project /home/user/gtest-demo/build
+Test project /home/user/battleship-cpluscplsu/build
     Start 1: unit
 1/1 Test #1: unit .............................   Passed    0.00 sec
 
